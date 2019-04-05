@@ -14,11 +14,11 @@ public class H2Configuration {
     private static String user = "";
     private static String password = "";
 
-    public static void main (String[] args) {
+    public static void main(String[] args) {
         Connection conn = getDBConnection();
-        if(conn!=null){
+        if (conn != null) {
             System.out.println("SUKCES!!!");
-        }else System.out.println("blebleble");
+        } else System.out.println("Nic z tego, brak połączenie!!!");
     }
 
 
@@ -29,14 +29,14 @@ public class H2Configuration {
         try {
             Class.forName(h2Driver);
         } catch (ClassNotFoundException e) {
-            System.out.println("cos z driver!");
+            System.out.println("Błąd DRIVERA!!!");
             e.printStackTrace();
         }
 
         try {
-            connection = DriverManager.getConnection(h2Addr,user,password);
+            connection = DriverManager.getConnection(h2Addr, user, password);
         } catch (SQLException e) {
-            System.out.println("coś z bazą, uzytkownikiem, lub hasłem!!!");
+            System.out.println("Adres bazy, użytkownik lub hasło!!!");
             e.printStackTrace();
         }
 
