@@ -14,15 +14,16 @@ public class H2Configuration {
     private static String user = "";
     private static String password = "";
 
-    public static void main(String[] args) {
-        Connection conn = getDBConnection();
-        if (conn != null) {
-            System.out.println("SUKCES!!!");
-        } else System.out.println("Nic z tego, brak połączenie!!!");
-    }
+//    metoda tylko dla testu połączeniu
+//    public static void main(String[] args) {
+//        Connection conn = getDBConnection();
+//        if (conn != null) {
+//            System.out.println("SUKCES!!!");
+//        } else System.out.println("Nic z tego, brak połączenie!!!");
+//    }
 
 
-    private static Connection getDBConnection() {
+    public static Connection getDBConnection() {
 
         Connection connection = null;
 
