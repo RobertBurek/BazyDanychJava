@@ -6,26 +6,34 @@ package jpa.domain;
 public class Student {
 
     private int id;
-    private String name;
+    private String imie;
+    private String nazwisko;
 
-    public Student(int id, String name) {
+    public Student(int id, String imie, String nazwisko) {
         this.id = id;
-        this.name = name;
+        this.imie = imie;
+        this.nazwisko = nazwisko;
     }
 
     public int getId() {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public String getImie() {
+        return imie;
     }
+
+    public String getNazwisko() {
+        return nazwisko;
+    }
+
 
     @Override
     public String toString() {
         return "Student{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", imie='" + imie + '\'' +
+                ", nazwisko='" + nazwisko + '\'' +
                 '}';
     }
 }

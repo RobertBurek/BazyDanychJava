@@ -15,62 +15,81 @@ import java.util.List;
  */
 public class JDBCExample {
 
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) throws SQLException, ClassNotFoundException {
 
         createTableForStudent();
-        Student pawel = new Student(1, "Paweł");
-        Student dawid = new Student(2, "Dawid");
+        Student pawel = new Student(1, "Paweł", "Kowalski");
+        Student marianna = new Student(2, "Marianna", "Jankowska");
+        Student robert = new Student(3, "Robert", "Burek");
 
         insertStudent(pawel);
-        insertStudent(dawid);
-        
+        insertStudent(marianna);
+        insertStudent(robert);
+
         List<Student> students = getStudent();
 
+        // students.forEach(System.out::println);
         students.forEach(student -> {
             System.out.println(student);
         });
 
+        System.out.println(getUczen(2));
     }
 
 
+    private static void createTableForStudent() throws SQLException, ClassNotFoundException {
 
-    private static void createTableForStudent() throws SQLException {
-
-        Connection connection = H2Configuration.getDBConnection();
+        Connection polaczenie = H2Configuration.getDBConnection();
 //        try {
-            Statement statement = connection.createStatement();
+        Statement komunikat = polaczenie.createStatement();
 //        } catch (SQLException e) {
 //            System.out.println("Problem z statement.");
 //            e.printStackTrace();
 //        }
-        String createTable = "CREATE TABLE STUDENT (id int primary key, name varchar(255))";
-        statement.execute(createTable);
-        connection.commit();
 
+        String createTable = "CREATE TABLE STUDENT (id int primary key, imie varchar(255), nazwisko varchar(255))";
+        komunikat.execute(createTable);
+
+        polaczenie.commit();
+    }
+
+    private static void insertStudent(Student student) throws SQLException, ClassNotFoundException {
+
+        Connection polaczenie = H2Configuration.getDBConnection();
+        Statement komunikat = polaczenie.createStatement();
+        String insert =
+                "INSERT INTO STUDENT VALUES(" + student.getId() + ",\'" + student.getImie() + "\',\'" + student.getNazwisko() + "\')";
+        komunikat.execute(insert);
+        polaczenie.commit();
 
     }
 
-    private static void insertStudent(Student student) throws SQLException {
-
-        Connection connection = H2Configuration.getDBConnection();
-        Statement statement = connection.createStatement();
-        String insert = "INSERT INTO STUDENT VALUES("+student.getId()+",\'"+student.getName()+"\')";
-        statement.execute(insert);
-        connection.commit();
-
-    }
-
-    private static List<Student> getStudent() throws SQLException {
+    private static List<Student> getStudent() throws SQLException, ClassNotFoundException {
         List<Student> students = new ArrayList<>();
         Connection connection = H2Configuration.getDBConnection();
-        Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery("SELECT * FROM STUDENT");
-        while (resultSet.next()) {
-            int id = resultSet.getInt("id");
-            String name = resultSet.getString("name");
-            students.add(new Student(id,name));
+        Statement zapytanie = connection.createStatement();
+        ResultSet rezultatZapytania = zapytanie.executeQuery("SELECT * FROM STUDENT");
+        while (rezultatZapytania.next()) {
+            int id = rezultatZapytania.getInt("id");
+            String imie = rezultatZapytania.getString("imie");
+            String nazwisko = rezultatZapytania.getString("nazwisko");
+            students.add(new Student(id, imie, nazwisko));
         }
         return students;
+    }
+
+    private static Student getUczen(int Id) throws SQLException, ClassNotFoundException {
+        Student uczen = new Student(0, "", "");
+        Connection polaczenie = H2Configuration.getDBConnection();
+        Statement zapytanie = polaczenie.createStatement();
+        ResultSet rezultatZapytania = zapytanie.executeQuery("SELECT * FROM STUDENT WHERE id = " + Id);
+        while (rezultatZapytania.next()) {
+            int id = rezultatZapytania.getInt("id");
+            String imie = rezultatZapytania.getString("imie");
+            String nazwisko = rezultatZapytania.getString("nazwisko");
+            uczen = new Student(id, imie, nazwisko);
+        }
+        return uczen;
     }
 
 

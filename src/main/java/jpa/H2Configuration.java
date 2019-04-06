@@ -15,6 +15,7 @@ public class H2Configuration {
     private static String password = "";
 
 //    metoda tylko dla testu połączeniu
+//
 //    public static void main(String[] args) {
 //        Connection conn = getDBConnection();
 //        if (conn != null) {
@@ -22,27 +23,27 @@ public class H2Configuration {
 //        } else System.out.println("Nic z tego, brak połączenie!!!");
 //    }
 
+    public static Connection getDBConnection() throws ClassNotFoundException, SQLException {
 
-    public static Connection getDBConnection() {
+        Connection polaczenie = null;
 
-        Connection connection = null;
+        Class.forName(h2Driver);
+        polaczenie = DriverManager.getConnection(h2Addr, user, password);
 
-        try {
-            Class.forName(h2Driver);
-        } catch (ClassNotFoundException e) {
-            System.out.println("Błąd DRIVERA!!!");
-            e.printStackTrace();
-        }
-
-        try {
-            connection = DriverManager.getConnection(h2Addr, user, password);
-        } catch (SQLException e) {
-            System.out.println("Adres bazy, użytkownik lub hasło!!!");
-            e.printStackTrace();
-        }
-
-        return connection;
-
+//        obsługa wyjątków w metodzie
+//        try {
+//            Class.forName(h2Driver);
+//        } catch (ClassNotFoundException e) {
+//            System.out.println("Błąd DRIVERA!!!");
+//            e.printStackTrace();
+//        }
+//        try {
+//            polaczenie = DriverManager.getConnection(h2Addr, user, password);
+//        } catch (SQLException e) {
+//            System.out.println("Adres bazy, użytkownik lub hasło!!!");
+//            e.printStackTrace();
+//        }
+        return polaczenie;
     }
 
 }
