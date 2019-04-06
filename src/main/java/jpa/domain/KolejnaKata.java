@@ -6,11 +6,26 @@ package jpa.domain;
 public class KolejnaKata {
 
     public static void main(String[] args) {
-        int[] teraz = foldArray(new int[]{1, 2, 3, 4, 5}, 2);
-        for (int i = 0; i < teraz.length; ++i) {
-            System.out.print(teraz[i] + "  ");
-        }
+//        int[] teraz = foldArray(new int[]{1, 2, 3, 4, 5}, 2);
+//        for (int i = 0; i < teraz.length; ++i) {
+//            System.out.print(teraz[i] + "  ");
+//        }
+
+        System.out.println(count_one_char("rrrroborrbototyka",'o'));
+
     }
+
+
+    public static int count_one_char(String s, char c){
+        //do something
+        int ile =0;
+        for(int i=0;i<s.length();++i){
+            if (s.substring(i,i+1).equals(""+c)) ++ile;
+        }
+        return ile;
+    }
+
+
 
     public static int[] foldArray(int[] array, int runs) {
         int[] start = array;
