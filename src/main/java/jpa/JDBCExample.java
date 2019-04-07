@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+
+
 /**
  * Created by Robert Burek
  */
@@ -34,6 +36,7 @@ public class JDBCExample {
         });
 
         System.out.println(getUczen(2));
+
     }
 
 

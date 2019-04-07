@@ -1,9 +1,6 @@
 package jpa.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created by Robert Burek
@@ -29,6 +26,9 @@ public class Student {
 
     @Embedded
     private Address address;
+
+    @OneToOne
+    private Indeks indeks;
 
     // hibernate wymaga pustego konstruktora ale może on być prywatny czyli taki którego nie użtwa się w prost
     private Student() {
@@ -92,6 +92,15 @@ public class Student {
                 ", telephon='" + telephon + '\'' +
                 ", pesel='" + pesel + '\'' +
                 ", address=" + address +
+                ", indeks=" + indeks +
                 '}';
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public void setIndeks(Indeks idx) {
+        this.indeks = idx;
     }
 }

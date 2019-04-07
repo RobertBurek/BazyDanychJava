@@ -9,11 +9,15 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Robert Burek
  */
 public class JPAApp {
+
     static EntityManagerFactory factory = Persistence.createEntityManagerFactory("jpaPersistence");
 
     static EntityManager entityManager = factory.createEntityManager();
@@ -21,18 +25,51 @@ public class JPAApp {
 
     public static void main(String[] args) {
 
+
         //CRUD
         //Create
         creatStudent();
+        System.out.println("-------------------utworzyłęm tabelę w bazie-----------------------");
+        readStudents();
+        System.out.println("---------------------odczytałem elementy tablicy z bazy---------------------------------");
+        Student ktos = readStudent(6);
+        System.out.println(ktos);
+        System.out.println("--------------------odczytałem dane nr=6 studenta z bazy--i zapisałe do objektu ktos----");
+        Indeks indeks = new Indeks(6, "123");
+        System.out.println(indeks);
+        System.out.println("--------------------stworzyłem indeks nr6 o numerze 123--------------------------------");
+        ktos.setIndeks(indeks);
+        System.out.println(ktos);
+        System.out.println("----------ustawiłem indeks do obiektu ktos------------------------------------------");
+        Address address = new Address("Domaniewska", "25", "02-300", "Warszawa");
+        System.out.println(address);
+        System.out.println("--------------------stworzyłem objekt address wszystkie dane adresowe------------------");
+        ktos.setAddress(address);
+        System.out.println(ktos);
+        System.out.println("-------------ustawiłem address na objelcie ktos--------------------------------");
+        ktos = entityManager.merge(ktos);
+        System.out.println(ktos);
+        System.out.println("--------------------wykonałem marge na objekcie ktos (nadpisałem w bazie)-----------");
+        System.out.println(readStudent(6));
+        System.out.println("--------------------wypisałem studenta nr6 na ekran dane wziąłem z bazy-----------------");
+        //System.out.println(ktos);
         //Read
         //   readStudents();
         //Update
         updateStudent(3, "", "", "654321", "");
+        System.out.println("--------------------zrobiłem update na nr3 student telefon 654321 bez merga ---------");
         //Delete
-        deleteStudent(5);
-
+        //deleteStudent(5);
 
         readStudents();
+        System.out.println("--------------------wypisałem wszystkich studentów na ekran dane wziąłem z bazy ---------");
+    }
+
+    private static Student readStudent(int nr) {
+        //entityManager.getTransaction().begin();
+        Student student = entityManager.find(Student.class, nr);
+        //entityManager.getTransaction().commit();
+        return student;
     }
 
     private static void deleteStudent(int nr) {
@@ -53,7 +90,7 @@ public class JPAApp {
 
     }
 
-    private static void readStudents() {
+    public static void readStudents() {
         //pobranie pojedyńczego elementu  tabeli
 //        Student student = entityManager.find(Student.class, 0);
 //        System.out.println(student);
