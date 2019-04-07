@@ -35,8 +35,22 @@ public class JPAApp {
         Student ktos = readStudent(6);
         System.out.println(ktos);
         System.out.println("--------------------odczytałem dane nr=6 studenta z bazy--i zapisałe do objektu ktos----");
-        Indeks indeks = new Indeks(6, "123");
+        entityManager.getTransaction().begin();
+        Indeks indeks = entityManager.merge(new Indeks(6, "123"));
+//        Indeks indeks0 = entityManager.merge(new Indeks(0, "000"));
+//        Indeks indeks1 = entityManager.merge(new Indeks(1, "111"));
+//        Indeks indeks2 = entityManager.merge(new Indeks(2, "222"));
+//        Indeks indeks3 = entityManager.merge(new Indeks(3, "333"));
+//        Indeks indeks4 = entityManager.merge(new Indeks(4, "444"));
+//        Indeks indeks5 = entityManager.merge(new Indeks(5, "555"));
+        entityManager.getTransaction().commit();
         System.out.println(indeks);
+//        System.out.println(indeks0);
+//        System.out.println(indeks1);
+//        System.out.println(indeks2);
+//        System.out.println(indeks3);
+//        System.out.println(indeks4);
+//        System.out.println(indeks5);
         System.out.println("--------------------stworzyłem indeks nr6 o numerze 123--------------------------------");
         ktos.setIndeks(indeks);
         System.out.println(ktos);
@@ -63,6 +77,8 @@ public class JPAApp {
 
         readStudents();
         System.out.println("--------------------wypisałem wszystkich studentów na ekran dane wziąłem z bazy ---------");
+        readIndeks();
+        System.out.println("--------------------wypisałem wszystkie indeksy na ekran dane wziąłem z bazy ---------");
     }
 
     private static Student readStudent(int nr) {
@@ -97,6 +113,18 @@ public class JPAApp {
         // pobranie całej tabeli  do ResultList
         List fromstudent = entityManager.createQuery("from Student").getResultList();
         fromstudent.forEach(System.out::println);
+
+    }
+
+    public static void readIndeks() {
+        //pobranie pojedyńczego elementu  tabeli
+//        Student student = entityManager.find(Student.class, 0);
+//        System.out.println(student);
+        // pobranie całej tabeli  do ResultList
+      //  Indeks indeks = entityManager.find(Indeks.class,6);
+        //System.out.println(indeks);
+        List fromindeks = entityManager.createQuery("from Indeks").getResultList();
+        fromindeks.forEach(System.out::println);
     }
 
 
