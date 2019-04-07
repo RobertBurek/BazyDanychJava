@@ -2,6 +2,7 @@ package jpa.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 /**
  * Created by Robert Burek
@@ -14,7 +15,8 @@ public class Indeks {
 
     private String number;
 
-
+    @OneToOne(mappedBy = "indeks")
+    private Student owner;
 
     public Indeks() {
     }
@@ -29,6 +31,15 @@ public class Indeks {
         return "Indeks{" +
                 "id=" + id +
                 ", number='" + number + '\'' +
+               // ", owner=" + owner +
                 '}';
+    }
+
+    public Student getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Student owner) {
+        this.owner = owner;
     }
 }

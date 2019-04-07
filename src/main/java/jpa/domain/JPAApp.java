@@ -79,6 +79,19 @@ public class JPAApp {
         System.out.println("--------------------wypisałem wszystkich studentów na ekran dane wziąłem z bazy ---------");
         readIndeks();
         System.out.println("--------------------wypisałem wszystkie indeksy na ekran dane wziąłem z bazy ---------");
+        Student innyktos = readStudent(0);
+        Indeks innyIndeks = entityManager.merge(new Indeks(0,"000"));
+        innyktos.setIndeks(innyIndeks);
+        innyIndeks.setOwner(innyktos);
+
+        entityManager.merge(innyIndeks);
+        entityManager.merge(innyktos);
+
+        Indeks indx = entityManager.find(Indeks.class,0);
+        System.out.println(indx);
+        System.out.println(readStudent(0));
+
+
     }
 
     private static Student readStudent(int nr) {
