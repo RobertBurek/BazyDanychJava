@@ -1,15 +1,12 @@
 package jpa.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created by Robert Burek
  */
-@Entity//(name = "uczniowie") dodatkowe znaczniki
-public class Student {
+@Entity
+public class Profesor {
 
     @Id //symbol przy unikatowym polu
     private int id;
@@ -31,23 +28,23 @@ public class Student {
     private Address address;
 
     // hibernate wymaga pustego konstruktora ale może on być prywatny czyli taki którego nie użtwa się w prost
-    private Student() {
+    private Profesor() {
     }
 
-    public Student(int id, String imie, String nazwisko) {
+    public Profesor(int id, String imie, String nazwisko) {
         this.id = id;
         this.imie = imie;
         this.nazwisko = nazwisko;
     }
 
-    public Student(int id, String imie, String nazwisko, String pesel) {
+    public Profesor(int id, String imie, String nazwisko, String pesel) {
         this.id = id;
         this.imie = imie;
         this.nazwisko = nazwisko;
         this.pesel = pesel;
     }
 
-    public Student(int id, String imie, String nazwisko, String telephon, String pesel) {
+    public Profesor(int id, String imie, String nazwisko, String telephon, String pesel) {
         this.id = id;
         this.imie = imie;
         this.nazwisko = nazwisko;
@@ -91,7 +88,7 @@ public class Student {
                 ", nazwisko='" + nazwisko + '\'' +
                 ", telephon='" + telephon + '\'' +
                 ", pesel='" + pesel + '\'' +
-                ", address=" + address +
                 '}';
     }
+
 }
