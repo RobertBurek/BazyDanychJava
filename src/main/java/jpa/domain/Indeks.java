@@ -1,8 +1,6 @@
 package jpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 /**
  * Created by Robert Burek
@@ -11,6 +9,7 @@ import javax.persistence.OneToOne;
 public class Indeks {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private String number;
@@ -21,8 +20,7 @@ public class Indeks {
     public Indeks() {
     }
 
-    public Indeks(int id, String number) {
-        this.id = id;
+    public Indeks( String number) {
         this.number = number;
     }
 
@@ -41,5 +39,9 @@ public class Indeks {
 
     public void setOwner(Student owner) {
         this.owner = owner;
+    }
+
+    public int getId(){
+        return id;
     }
 }

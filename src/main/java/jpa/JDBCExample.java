@@ -20,9 +20,9 @@ public class JDBCExample {
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
 
         createTableForStudent();
-        Student pawel = new Student(1, "Paweł", "Kowalski");
-        Student marianna = new Student(2, "Marianna", "Jankowska");
-        Student robert = new Student(3, "Robert", "Burek");
+        Student pawel = new Student("Paweł", "Kowalski");
+        Student marianna = new Student( "Marianna", "Jankowska");
+        Student robert = new Student("Robert", "Burek");
 
         insertStudent(pawel);
         insertStudent(marianna);
@@ -76,13 +76,13 @@ public class JDBCExample {
             int id = rezultatZapytania.getInt("id");
             String imie = rezultatZapytania.getString("imie");
             String nazwisko = rezultatZapytania.getString("nazwisko");
-            students.add(new Student(id, imie, nazwisko));
+            students.add(new Student( imie, nazwisko));
         }
         return students;
     }
 
     private static Student getUczen(int Id) throws SQLException, ClassNotFoundException {
-        Student uczen = new Student(0, "", "");
+        Student uczen = new Student( "", "");
         Connection polaczenie = H2Configuration.getDBConnection();
         Statement zapytanie = polaczenie.createStatement();
         ResultSet rezultatZapytania = zapytanie.executeQuery("SELECT * FROM STUDENT WHERE id = " + Id);
@@ -90,7 +90,7 @@ public class JDBCExample {
             int id = rezultatZapytania.getInt("id");
             String imie = rezultatZapytania.getString("imie");
             String nazwisko = rezultatZapytania.getString("nazwisko");
-            uczen = new Student(id, imie, nazwisko);
+            uczen = new Student( imie, nazwisko);
         }
         return uczen;
     }

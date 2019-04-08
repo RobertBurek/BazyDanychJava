@@ -8,7 +8,8 @@ import javax.persistence.*;
 @Entity//(name = "uczniowie") dodatkowe znaczniki
 public class Student {
 
-    @Id //symbol przy unikatowym polu
+    @Id                         //symbol przy unikatowym polu
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(name="IMIE")//    @Column(name="firstname", nullable = false) - dodatkowe znaczniki
@@ -34,21 +35,18 @@ public class Student {
     private Student() {
     }
 
-    public Student(int id, String imie, String nazwisko) {
-        this.id = id;
+    public Student(String imie, String nazwisko) {
         this.imie = imie;
         this.nazwisko = nazwisko;
     }
 
-    public Student(int id, String imie, String nazwisko, String pesel) {
-        this.id = id;
+    public Student( String imie, String nazwisko, String pesel) {
         this.imie = imie;
         this.nazwisko = nazwisko;
         this.pesel = pesel;
     }
 
-    public Student(int id, String imie, String nazwisko, String telephon, String pesel) {
-        this.id = id;
+    public Student(String imie, String nazwisko, String telephon, String pesel) {
         this.imie = imie;
         this.nazwisko = nazwisko;
         this.telephon = telephon;
@@ -73,7 +71,7 @@ public class Student {
 
     public String getTelephon() { return telephon; }
 
-    public void setId(int id) { this.id = id; }
+    //public void setId(int id) { this.id = id; }
 
     public void setImie(String imie) {this.imie = imie;}
 

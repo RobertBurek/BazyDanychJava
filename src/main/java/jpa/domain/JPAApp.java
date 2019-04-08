@@ -36,13 +36,13 @@ public class JPAApp {
         System.out.println(ktos);
         System.out.println("--------------------odczytałem dane nr=6 studenta z bazy--i zapisałe do objektu ktos----");
         entityManager.getTransaction().begin();
-        Indeks indeks = entityManager.merge(new Indeks(6, "123"));
-//        Indeks indeks0 = entityManager.merge(new Indeks(0, "000"));
-//        Indeks indeks1 = entityManager.merge(new Indeks(1, "111"));
-//        Indeks indeks2 = entityManager.merge(new Indeks(2, "222"));
-//        Indeks indeks3 = entityManager.merge(new Indeks(3, "333"));
-//        Indeks indeks4 = entityManager.merge(new Indeks(4, "444"));
-//        Indeks indeks5 = entityManager.merge(new Indeks(5, "555"));
+        Indeks indeks = entityManager.merge(new Indeks("123"));
+        Indeks indeks0 = entityManager.merge(new Indeks( "000"));
+        Indeks indeks1 = entityManager.merge(new Indeks( "111"));
+        Indeks indeks2 = entityManager.merge(new Indeks( "222"));
+        Indeks indeks3 = entityManager.merge(new Indeks( "333"));
+        Indeks indeks4 = entityManager.merge(new Indeks( "444"));
+        Indeks indeks5 = entityManager.merge(new Indeks( "555"));
         entityManager.getTransaction().commit();
         System.out.println(indeks);
 //        System.out.println(indeks0);
@@ -79,17 +79,21 @@ public class JPAApp {
         System.out.println("--------------------wypisałem wszystkich studentów na ekran dane wziąłem z bazy ---------");
         readIndeks();
         System.out.println("--------------------wypisałem wszystkie indeksy na ekran dane wziąłem z bazy ---------");
-        Student innyktos = readStudent(0);
-        Indeks innyIndeks = entityManager.merge(new Indeks(0,"000"));
+        Student innyktos = readStudent(1);
+        Indeks innyIndeks = entityManager.merge(new Indeks("000"));
         innyktos.setIndeks(innyIndeks);
         innyIndeks.setOwner(innyktos);
 
         entityManager.merge(innyIndeks);
         entityManager.merge(innyktos);
 
-        Indeks indx = entityManager.find(Indeks.class,0);
+        Indeks indx = entityManager.find(Indeks.class,1);
         System.out.println(indx);
-        System.out.println(readStudent(0));
+        System.out.println(readStudent(1));
+
+        Indeks mergeIndeks = entityManager.merge(indeks);
+        Indeks idxx = entityManager.find(Indeks.class,mergeIndeks.getId());
+        System.out.println(idxx);
 
 
     }
@@ -143,12 +147,12 @@ public class JPAApp {
 
     private static void creatStudent() {
 
-        Student pawel = new Student(0, "Paweł", "Kowalski");
-        Student marian = new Student(1, "Marian", "Mikołajewicz");
-        Student marianna = new Student(3, "Marianna", "Niemczycka");
-        Student robert = new Student(4, "Robert", "Jaaaaa", "70020421252");
-        Student zenek = new Student(5, "Zennon", "Maślak", "256357", "85021206036");
-        Student franek = new Student(6, "Franciszek", "Ktośtam", "82112541589");
+        Student pawel = new Student( "Paweł", "Kowalski");
+        Student marian = new Student( "Marian", "Mikołajewicz");
+        Student marianna = new Student( "Marianna", "Niemczycka");
+        Student robert = new Student("Robert", "Jaaaaa", "70020421252");
+        Student zenek = new Student( "Zennon", "Maślak", "256357", "85021206036");
+        Student franek = new Student( "Franciszek", "Ktośtam", "82112541589");
 
         entityManager.getTransaction().begin();
         entityManager.persist(pawel);

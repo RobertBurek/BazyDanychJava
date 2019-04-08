@@ -9,6 +9,7 @@ import javax.persistence.*;
 public class Profesor {
 
     @Id //symbol przy unikatowym polu
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(name="IMIE")//    @Column(name="firstname", nullable = false) - dodatkowe znaczniki
@@ -31,8 +32,7 @@ public class Profesor {
     private Profesor() {
     }
 
-    public Profesor(int id, String imie, String nazwisko) {
-        this.id = id;
+    public Profesor( String imie, String nazwisko) {
         this.imie = imie;
         this.nazwisko = nazwisko;
     }
