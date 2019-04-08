@@ -108,12 +108,16 @@ public class JPAApp {
         entityManager.getTransaction().begin();
         University umk = entityManager.merge(new University("UMK"));
         umk.addStudent(monika);
-
-        for (int i=1; i<4 ;++i) umk.addStudent(readStudent(i));
+        monika.setUniversity(umk);
+        entityManager.merge(umk);
+        entityManager.merge(monika);
         entityManager.getTransaction().commit();
-        System.out.println(umk);
+        readStudent(7);
+//        for (int i=1; i<4 ;++i) umk.addStudent(readStudent(i));
+//        entityManager.getTransaction().commit();
+//        System.out.println(umk);
         //umk.toString();
-//        readStudents();
+        readStudents();
 
 
 

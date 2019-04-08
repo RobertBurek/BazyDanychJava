@@ -31,6 +31,9 @@ public class Student {
     @OneToOne (cascade = CascadeType.ALL)
     private Indeks indeks;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    private University university;
+
     // hibernate wymaga pustego konstruktora ale może on być prywatny czyli taki którego nie użtwa się w prost
     private Student() {
     }
@@ -99,6 +102,7 @@ public class Student {
                 ", pesel='" + pesel + '\'' +
                 ", address=" + address +
                 ", indeks=" + indeks +
+                ", university=" + university +
                 '}';
     }
 
@@ -108,5 +112,9 @@ public class Student {
 
     public void setIndeks(Indeks idx) {
         this.indeks = idx;
+    }
+
+    public void setUniversity(University university) {
+        this.university = university;
     }
 }
