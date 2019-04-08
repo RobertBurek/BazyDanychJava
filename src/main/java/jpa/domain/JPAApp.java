@@ -105,6 +105,18 @@ public class JPAApp {
         System.out.println("-------------------------");
         readIndeks();
 
+        entityManager.getTransaction().begin();
+        University umk = entityManager.merge(new University("UMK"));
+        umk.addStudent(monika);
+
+        for (int i=1; i<4 ;++i) umk.addStudent(readStudent(i));
+        entityManager.getTransaction().commit();
+        System.out.println(umk);
+        //umk.toString();
+//        readStudents();
+
+
+
 
     }
 
