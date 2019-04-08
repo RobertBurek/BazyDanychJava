@@ -28,7 +28,7 @@ public class Student {
     @Embedded
     private Address address;
 
-    @OneToOne
+    @OneToOne (cascade = CascadeType.ALL)
     private Indeks indeks;
 
     // hibernate wymaga pustego konstruktora ale może on być prywatny czyli taki którego nie użtwa się w prost
@@ -44,6 +44,14 @@ public class Student {
         this.imie = imie;
         this.nazwisko = nazwisko;
         this.pesel = pesel;
+    }
+
+    public Student( String imie, String nazwisko, String telephon, String pesel, String indexNumber) {
+        this.imie = imie;
+        this.nazwisko = nazwisko;
+        this.telephon = telephon;
+        this.pesel = pesel;
+        this.indeks = new Indeks(indexNumber);
     }
 
     public Student(String imie, String nazwisko, String telephon, String pesel) {
