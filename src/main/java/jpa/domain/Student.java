@@ -1,6 +1,8 @@
 package jpa.domain;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Robert Burek
@@ -34,6 +36,9 @@ public class Student {
     @ManyToOne(cascade = CascadeType.ALL)
     private University university;
 
+    @ManyToMany
+    private Set<Classes> classes;
+
     // hibernate wymaga pustego konstruktora ale może on być prywatny czyli taki którego nie użtwa się w prost
     private Student() {
     }
@@ -41,6 +46,7 @@ public class Student {
     public Student(String imie, String nazwisko) {
         this.imie = imie;
         this.nazwisko = nazwisko;
+        this.classes=new HashSet<>();
     }
 
     public Student( String imie, String nazwisko, String pesel) {
@@ -116,5 +122,9 @@ public class Student {
 
     public void setUniversity(University university) {
         this.university = university;
+    }
+
+    public void addClasses(Classes classes){
+        this.classes.add(classes);
     }
 }
