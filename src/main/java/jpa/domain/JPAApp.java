@@ -143,8 +143,16 @@ public class JPAApp {
         createData();
 
         TypedQuery<QueryResult> query = entityManager.createQuery("SELECT new jpa.QueryResult(s.imie, s.indeks" +
-                ".number, s.university.name) FROM Student s WHERE s.imie IN ('Robert' ,'Monika')",QueryResult.class);
-        query.getResultList().forEach(odp-> System.out.println(odp.toString(3)));
+                ".number, s.university.name) FROM Student s WHERE s.imie IN ('Robert' ,'Monika')", QueryResult.class);
+        query.getResultList().forEach(odp -> System.out.println(odp.toString(3)));
+
+        List<QueryResult> resultList = entityManager.createQuery("SELECT new jpa.QueryResult(s.imie, COUNT(s)) " +
+                "FROM Student s GROUP BY s.imie ORDER BY s.imie", QueryResult.class).getResultList();
+        resultList.forEach(odp -> System.out.println(odp.toStringInt()));
+
+        List<QueryResult> resultList2 = entityManager.createQuery("SELECT new jpa.QueryResult(s.imie, COUNT(s)) " +
+                "FROM Student s GROUP BY s.imie HAVING s.imie LIKE 'R%'", QueryResult.class).getResultList();
+        resultList2.forEach(odp -> System.out.println(odp.toStringInt()));
 
 //        query.getResultList().forEach(wynik -> {
 //
@@ -179,7 +187,13 @@ public class JPAApp {
         Student monika = entityManager.merge(new Student("Monika", "Nowakowska", "343434",
                 "89120206324", "111"));
         Student robert = entityManager.merge(new Student("Robert", "Mańkowski", "111111",
-                "85122456856", "222"));
+                "86122456856", "222"));
+        Student robert2 = entityManager.merge(new Student("Robert", "InnegoNazwiska", "333333",
+                "87122456856", "333"));
+        Student robert3 = entityManager.merge(new Student("Robert", "KolegaMoniki", "444444",
+                "85122456856", "444"));
+        Student ania = entityManager.merge(new Student("Ania", "KolIzy", "555555",
+                "93122456856", "555"));
         University umk = entityManager.merge(new University("UMK"));
         umk.addStudent(monika);
         umk.addStudent(robert);

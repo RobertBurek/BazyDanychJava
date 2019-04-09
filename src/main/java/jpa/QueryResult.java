@@ -9,6 +9,13 @@ public class QueryResult {
     private String odp2;
     private String odp3;
     private String odp4;
+    private long odp5;
+
+    public QueryResult(String odp1, long odp5) {
+        this.odp1 = odp1;
+        this.odp5 = odp5;
+    }
+
 
 
     public QueryResult(String odp1) {
@@ -33,6 +40,13 @@ public class QueryResult {
         this.odp4 = odp4;
     }
 
+
+    public String toStringInt() {
+        return "QueryResult{" +
+                "odp1='" + odp1 + '\'' +
+                ", odp5=" + odp5 +
+                '}';
+    }
 
     @Override
     public String toString() {
