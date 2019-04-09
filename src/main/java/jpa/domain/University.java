@@ -8,7 +8,7 @@ import java.util.Set;
  * Created by Robert Burek
  */
 @Entity
-@NamedQuery(name="Uniwersytety", query = "SELECT s FROM University s")
+@NamedQuery(name = "Uniwersytety", query = "SELECT s FROM University s")
 public class University {
 
     @Id
@@ -28,10 +28,9 @@ public class University {
         this.name = name;
     }
 
-    public void addStudent(Student student){
+    public void addStudent(Student student) {
         students.add(student);
     }
-
 
 
     @Override
@@ -39,7 +38,7 @@ public class University {
         return "University{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-               // ", students=" + students +
+                // ", students=" + students +
                 '}';
     }
 }

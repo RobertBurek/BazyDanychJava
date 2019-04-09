@@ -20,17 +20,17 @@ public class Classes {
     private Set<Student> students;
 
 
-    public Classes(){}
+    public Classes() {
+    }
 
     public Classes(String name) {
         this.name = name;
         students = new HashSet<>();
     }
 
-    public void addStudent(Student student){
+    public void addStudent(Student student) {
         students.add(student);
     }
-
 
 
     @Override

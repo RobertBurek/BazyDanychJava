@@ -15,8 +15,11 @@ import java.util.concurrent.TimeUnit;
  * Created by Robert Burek
  */
 public class JPAApp {
+//  dla lokalnej bazy H2 - jpaPersistenceDev
+//    static EntityManagerFactory factory = Persistence.createEntityManagerFactory("jpaPersistenceDev");
 
-    static EntityManagerFactory factory = Persistence.createEntityManagerFactory("jpaPersistence");
+    //    dla zdalnej bazy Postgresql - jpaPersistenceProd
+    static EntityManagerFactory factory = Persistence.createEntityManagerFactory("jpaPersistenceProd");
 
     static EntityManager entityManager = factory.createEntityManager();
 

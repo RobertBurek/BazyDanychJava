@@ -9,13 +9,13 @@ import java.util.Set;
  */
 @Entity//(name = "uczniowie") dodatkowe znaczniki
 @NamedQueries({
-    @NamedQuery(name = "Student.getAll", query = "SELECT s FROM Student s"),
-    @NamedQuery(name = "Student.byName", query = "SELECT s FROM Student s WHERE s.imie = :name"),
-    @NamedQuery(name = "Student.CountName", query = "SELECT new jpa.QueryResult(s.imie, COUNT(s)) FROM Student s " +
-            "GROUP BY s.imie ORDER BY s.imie"),
-    @NamedQuery(name = "Student.CountitName", query = "SELECT new jpa.QueryResult(s.imie, COUNT(s)) " +
-            "FROM Student s GROUP BY s.imie HAVING s.imie LIKE :name")
-        })
+        @NamedQuery(name = "Student.getAll", query = "SELECT s FROM Student s"),
+        @NamedQuery(name = "Student.byName", query = "SELECT s FROM Student s WHERE s.imie = :name"),
+        @NamedQuery(name = "Student.CountName", query = "SELECT new jpa.QueryResult(s.imie, COUNT(s)) FROM Student s " +
+                "GROUP BY s.imie ORDER BY s.imie"),
+        @NamedQuery(name = "Student.CountitName", query = "SELECT new jpa.QueryResult(s.imie, COUNT(s)) " +
+                "FROM Student s GROUP BY s.imie HAVING s.imie LIKE :name")
+})
 public class Student {
 
     @Id                         //symbol przy unikatowym polu
@@ -154,7 +154,7 @@ public class Student {
         this.university = university;
     }
 
-    public void addClasses(Classes classes){
+    public void addClasses(Classes classes) {
         this.classes.add(classes);
     }
 

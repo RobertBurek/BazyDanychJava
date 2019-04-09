@@ -17,7 +17,6 @@ public class QueryResult {
     }
 
 
-
     public QueryResult(String odp1) {
         this.odp1 = odp1;
     }

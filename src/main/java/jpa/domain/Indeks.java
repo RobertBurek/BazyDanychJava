@@ -20,7 +20,7 @@ public class Indeks {
     public Indeks() {
     }
 
-    public Indeks( String number) {
+    public Indeks(String number) {
         this.number = number;
     }
 
@@ -29,7 +29,7 @@ public class Indeks {
         return "Indeks{" +
                 "id=" + id +
                 ", number='" + number + '\'' +
-               // ", owner=" + owner +
+                // ", owner=" + owner +
                 '}';
     }
 
@@ -41,7 +41,7 @@ public class Indeks {
         this.owner = owner;
     }
 
-    public int getId(){
+    public int getId() {
         return id;
     }
 }
