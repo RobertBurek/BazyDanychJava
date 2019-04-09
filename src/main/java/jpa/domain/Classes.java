@@ -30,4 +30,15 @@ public class Classes {
     public void addStudent(Student student){
         students.add(student);
     }
+
+
+
+    @Override
+    public String toString() {
+        return "Classes{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", students=" + students +
+                '}';
+    }
 }

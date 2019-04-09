@@ -14,7 +14,7 @@ public class Student {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name="IMIE")//    @Column(name="firstname", nullable = false) - dodatkowe znaczniki
+    @Column(name = "IMIE")//    @Column(name="firstname", nullable = false) - dodatkowe znaczniki
     private String imie;
 
     //    @Column(name="surname") - dodatkowe znaczniki
@@ -30,13 +30,14 @@ public class Student {
     @Embedded
     private Address address;
 
-    @OneToOne (cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     private Indeks indeks;
 
     @ManyToOne(cascade = CascadeType.ALL)
     private University university;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    //@ManyToMany//(mappedBy = "students", cascade = CascadeType.ALL)
     private Set<Classes> classes;
 
     // hibernate wymaga pustego konstruktora ale może on być prywatny czyli taki którego nie użtwa się w prost
@@ -46,16 +47,16 @@ public class Student {
     public Student(String imie, String nazwisko) {
         this.imie = imie;
         this.nazwisko = nazwisko;
-        this.classes=new HashSet<>();
+        this.classes = new HashSet<>();
     }
 
-    public Student( String imie, String nazwisko, String pesel) {
+    public Student(String imie, String nazwisko, String pesel) {
         this.imie = imie;
         this.nazwisko = nazwisko;
         this.pesel = pesel;
     }
 
-    public Student( String imie, String nazwisko, String telephon, String pesel, String indexNumber) {
+    public Student(String imie, String nazwisko, String telephon, String pesel, String indexNumber) {
         this.imie = imie;
         this.nazwisko = nazwisko;
         this.telephon = telephon;
@@ -71,7 +72,6 @@ public class Student {
     }
 
 
-
     public int getId() {
         return id;
     }
@@ -84,19 +84,31 @@ public class Student {
         return nazwisko;
     }
 
-    public String getPesel() { return pesel; }
+    public String getPesel() {
+        return pesel;
+    }
 
-    public String getTelephon() { return telephon; }
+    public String getTelephon() {
+        return telephon;
+    }
 
     //public void setId(int id) { this.id = id; }
 
-    public void setImie(String imie) {this.imie = imie;}
+    public void setImie(String imie) {
+        this.imie = imie;
+    }
 
-    public void setNazwisko(String nazwisko) {this.nazwisko = nazwisko;}
+    public void setNazwisko(String nazwisko) {
+        this.nazwisko = nazwisko;
+    }
 
-    public void setTelephon(String telephon) {this.telephon = telephon;}
+    public void setTelephon(String telephon) {
+        this.telephon = telephon;
+    }
 
-    public void setPesel(String pesel) {this.pesel = pesel;}
+    public void setPesel(String pesel) {
+        this.pesel = pesel;
+    }
 
     @Override
     public String toString() {
@@ -109,6 +121,16 @@ public class Student {
                 ", address=" + address +
                 ", indeks=" + indeks +
                 ", university=" + university +
+                ", classes=" + classes +
+                '}';
+    }
+
+    public String toString(Boolean YN) {
+        return "Student{" +
+                "id=" + id +
+                ", imie='" + imie + '\'' +
+                ", nazwisko='" + nazwisko + '\'' +
+                ", classes=" + classes +
                 '}';
     }
 
@@ -127,4 +149,5 @@ public class Student {
     public void addClasses(Classes classes){
         this.classes.add(classes);
     }
+
 }

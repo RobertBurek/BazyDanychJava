@@ -111,8 +111,31 @@ public class JPAApp {
         monika.setUniversity(umk);
         entityManager.merge(umk);
         entityManager.merge(monika);
-        entityManager.getTransaction().commit();
+
         readStudent(7);
+        Classes geografia = new Classes("GEOGRAFIA");
+        Classes matematyka = new Classes("MATEMATYKA");
+        matematyka.addStudent(monika);
+        matematyka.addStudent(readStudent(3));
+        geografia.addStudent(monika);
+        geografia.addStudent(readStudent(4));
+        entityManager.merge(geografia);
+        entityManager.merge(matematyka);
+
+
+        System.out.println(geografia);
+        System.out.println(matematyka);
+        Student nowy = new Student("Imie","Nazwisko");
+        nowy.addClasses(geografia);
+        entityManager.persist(nowy);
+        entityManager.getTransaction().commit();
+        System.out.println("___NOWY_____");
+        System.out.println(nowy.toString(true));
+        System.out.println("___NOWY_____");
+//        monika.addClasses(geografia);
+//        readStudent(4).addClasses(geografia);
+        System.out.println(monika.toString(true));
+        System.out.println(readStudent(4).toString(true));
 //        for (int i=1; i<4 ;++i) umk.addStudent(readStudent(i));
 //        entityManager.getTransaction().commit();
 //        System.out.println(umk);
