@@ -4,10 +4,7 @@ import org.h2.command.ddl.CreateUserDataType;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import javax.persistence.*;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -144,34 +141,44 @@ public class JPAApp {
 
         createData();
 
-        entityManager.createQuery("SELECT s FROM Student s WHERE s.imie LIKE '%ob%'").getResultList().forEach(System.out::println);
+//        entityManager.createQuery("SELECT s FROM Student s WHERE s.imie LIKE '%ob%'")
+//                .getResultList().forEach(System.out::println);
 
-//        List<Indeks> resultList = entityManager.createQuery("SELECT s.indeks FROM Student s", Indeks.class).getResultList();
+        TypedQuery<Indeks> query = entityManager.createQuery("SELECT s.indeks FROM Student s WHERE s.imie = ?1",
+                Indeks.class);
+        query.setParameter(1,"Robert");
+        System.out.println(query.getSingleResult());
+        System.out.println("---------odpowiedź na pytanie : "+query.toString());
+        TypedQuery<Indeks> query1 = entityManager.createQuery("SELECT s.indeks FROM Student s WHERE s.imie = "
+                        + ":nameParametr", Indeks.class);
+        query1.setParameter("nameParametr","Monika");
+
+        System.out.println(query1.getSingleResult());
+        System.out.println("---------odpowiedź na pytanie : "+query1.toString());
 
 
     }
 
-    private static void createData(){
+    private static void createData() {
 
         entityManager.getTransaction().begin();
-        Student monika = entityManager.merge(new Student("Monika","Nowakowska", "343434",
-                "89120206324","111"));
-        Student robert = entityManager.merge(new Student("Robert","Mańkowski", "111111",
-                "85122456856","222"));
+        Student monika = entityManager.merge(new Student("Monika", "Nowakowska", "343434",
+                "89120206324", "111"));
+        Student robert = entityManager.merge(new Student("Robert", "Mańkowski", "111111",
+                "85122456856", "222"));
         entityManager.getTransaction().commit();
-//        System.out.println(monika);
 //        System.out.println("---------------------------------------------------------------------------------------");
-////        readStudents();
-//       // readStudent(0);
-//
-//        readStudent(2);
+//        System.out.println(readStudent(2));
 //        System.out.println("---------------------------------------------------------------------------------------");
-
+//        System.out.println(readStudent(1));
+//        System.out.println("---------------------------------------------------------------------------------------");
     }
 
     private static Student readStudent(int nr) {
         //entityManager.getTransaction().begin();
-        Student student = entityManager.find(Student.class,nr);
+        //Student student = entityManager.find(Student.class, nr);
+        Student student = entityManager.createQuery("SELECT s FROM Student s WHERE s.id LIKE " + nr,
+                Student.class).getSingleResult();
         //entityManager.getTransaction().commit();
         return student;
     }
@@ -209,7 +216,7 @@ public class JPAApp {
 //        Student student = entityManager.find(Student.class, 0);
 //        System.out.println(student);
         // pobranie całej tabeli  do ResultList
-      //  Indeks indeks = entityManager.find(Indeks.class,6);
+        //  Indeks indeks = entityManager.find(Indeks.class,6);
         //System.out.println(indeks);
         List fromindeks = entityManager.createQuery("from Indeks").getResultList();
         fromindeks.forEach(System.out::println);
@@ -218,12 +225,12 @@ public class JPAApp {
 
     private static void creatStudent() {
 
-        Student pawel = new Student( "Paweł", "Kowalski");
-        Student marian = new Student( "Marian", "Mikołajewicz");
-        Student marianna = new Student( "Marianna", "Niemczycka");
+        Student pawel = new Student("Paweł", "Kowalski");
+        Student marian = new Student("Marian", "Mikołajewicz");
+        Student marianna = new Student("Marianna", "Niemczycka");
         Student robert = new Student("Robert", "Jaaaaa", "70020421252");
-        Student zenek = new Student( "Zennon", "Maślak", "256357", "85021206036");
-        Student franek = new Student( "Franciszek", "Ktośtam", "82112541589");
+        Student zenek = new Student("Zennon", "Maślak", "256357", "85021206036");
+        Student franek = new Student("Franciszek", "Ktośtam", "82112541589");
 
         entityManager.getTransaction().begin();
         entityManager.persist(pawel);
