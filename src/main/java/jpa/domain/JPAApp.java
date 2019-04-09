@@ -1,5 +1,6 @@
 package jpa.domain;
 
+import jpa.QueryResult;
 import org.h2.command.ddl.CreateUserDataType;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -141,21 +142,34 @@ public class JPAApp {
 
         createData();
 
-//        entityManager.createQuery("SELECT s FROM Student s WHERE s.imie LIKE '%ob%'")
-//                .getResultList().forEach(System.out::println);
+        TypedQuery<QueryResult> query = entityManager.createQuery("SELECT new jpa.QueryResult(s.imie, s.indeks" +
+                ".number, s.university.name) FROM Student s WHERE s.imie IN ('Robert' ,'Monika')",QueryResult.class);
+        query.getResultList().forEach(odp-> System.out.println(odp.toString(3)));
 
-        TypedQuery<Indeks> query = entityManager.createQuery("SELECT s.indeks FROM Student s WHERE s.imie = ?1",
-                Indeks.class);
-        query.setParameter(1,"Robert");
-        System.out.println(query.getSingleResult());
-        System.out.println("---------odpowiedź na pytanie : "+query.toString());
-        TypedQuery<Indeks> query1 = entityManager.createQuery("SELECT s.indeks FROM Student s WHERE s.imie = "
-                        + ":nameParametr", Indeks.class);
-        query1.setParameter("nameParametr","Monika");
+//        query.getResultList().forEach(wynik -> {
+//
+//            Object[] wynikCasted = (Object[]) wynik;
+//
+//            if (wynikCasted[0] instanceof Student) {
+//                System.out.println(wynikCasted[0]);
+//            }
+//
+//        });
 
-        System.out.println(query1.getSingleResult());
-        System.out.println("---------odpowiedź na pytanie : "+query1.toString());
 
+//
+//        TypedQuery<Indeks> query = entityManager.createQuery("SELECT s.indeks FROM Student s WHERE s.imie = ?1",
+//                Indeks.class);
+//        query.setParameter(1,"Robert");
+//        System.out.println(query.getSingleResult());
+//        System.out.println("---------odpowiedź na pytanie : "+query.toString());
+//        TypedQuery<Indeks> query1 = entityManager.createQuery("SELECT s.indeks FROM Student s WHERE s.imie = "
+//                        + ":nameParametr", Indeks.class);
+//        query1.setParameter("nameParametr","Monika");
+//
+//        System.out.println(query1.getSingleResult());
+//        System.out.println("---------odpowiedź na pytanie : "+query1.toString());
+//
 
     }
 
@@ -166,6 +180,14 @@ public class JPAApp {
                 "89120206324", "111"));
         Student robert = entityManager.merge(new Student("Robert", "Mańkowski", "111111",
                 "85122456856", "222"));
+        University umk = entityManager.merge(new University("UMK"));
+        umk.addStudent(monika);
+        umk.addStudent(robert);
+        monika.setUniversity(umk);
+        robert.setUniversity(umk);
+        entityManager.merge(umk);
+        entityManager.merge(monika);
+        entityManager.merge(robert);
         entityManager.getTransaction().commit();
 //        System.out.println("---------------------------------------------------------------------------------------");
 //        System.out.println(readStudent(2));
