@@ -142,8 +142,10 @@ public class JPAApp {
 
         createData();
 
-        TypedQuery<QueryResult> query = entityManager.createQuery("SELECT new jpa.QueryResult(s.imie, s.indeks" +
-                ".number, s.university.name) FROM Student s WHERE s.imie IN ('Robert' ,'Monika')", QueryResult.class);
+        String qlString = "SELECT new jpa.QueryResult(s.imie, s.indeks" +
+                ".number, s.university.name) FROM Student s WHERE s.imie IN ('Robert' ,'Monika')";
+
+        TypedQuery<QueryResult> query = entityManager.createQuery(qlString, QueryResult.class);
         query.getResultList().forEach(odp -> System.out.println(odp.toString(3)));
 
         List<QueryResult> resultList = entityManager.createQuery("SELECT new jpa.QueryResult(s.imie, COUNT(s)) " +
@@ -153,6 +155,17 @@ public class JPAApp {
         List<QueryResult> resultList2 = entityManager.createQuery("SELECT new jpa.QueryResult(s.imie, COUNT(s)) " +
                 "FROM Student s GROUP BY s.imie HAVING s.imie LIKE 'R%'", QueryResult.class).getResultList();
         resultList2.forEach(odp -> System.out.println(odp.toStringInt()));
+
+        entityManager.createNamedQuery("Student.getAll",Student.class).getResultList().forEach(System.out::println);
+
+        entityManager.createNamedQuery("Student.byName",Student.class).setParameter("name","Robert")
+                .getResultList().forEach(System.out::println);
+
+        entityManager.createNamedQuery("Student.CountName",QueryResult.class)
+                .getResultList().forEach(odp -> System.out.println(odp.toStringInt()));
+
+        entityManager.createNamedQuery("Student.CountitName",QueryResult.class).setParameter("name","Robert")
+                .getResultList().forEach(odp -> System.out.println(odp.toStringInt()));
 
 //        query.getResultList().forEach(wynik -> {
 //

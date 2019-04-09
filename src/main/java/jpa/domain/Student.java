@@ -8,6 +8,14 @@ import java.util.Set;
  * Created by Robert Burek
  */
 @Entity//(name = "uczniowie") dodatkowe znaczniki
+@NamedQueries({
+    @NamedQuery(name = "Student.getAll", query = "SELECT s FROM Student s"),
+    @NamedQuery(name = "Student.byName", query = "SELECT s FROM Student s WHERE s.imie = :name"),
+    @NamedQuery(name = "Student.CountName", query = "SELECT new jpa.QueryResult(s.imie, COUNT(s)) FROM Student s " +
+            "GROUP BY s.imie ORDER BY s.imie"),
+    @NamedQuery(name = "Student.CountitName", query = "SELECT new jpa.QueryResult(s.imie, COUNT(s)) " +
+            "FROM Student s GROUP BY s.imie HAVING s.imie LIKE :name")
+        })
 public class Student {
 
     @Id                         //symbol przy unikatowym polu
