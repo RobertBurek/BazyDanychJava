@@ -8,6 +8,7 @@ import java.util.Set;
  * Created by Robert Burek
  */
 @Entity
+@NamedQuery(name="Uniwersytety", query = "SELECT s FROM University s")
 public class University {
 
     @Id
@@ -16,7 +17,7 @@ public class University {
 
     private String name;
 
-    @OneToMany(mappedBy = "university")
+    @OneToMany(fetch = FetchType.LAZY)//(mappedBy = "university")
     private Set<Student> students;
 
     private University() {

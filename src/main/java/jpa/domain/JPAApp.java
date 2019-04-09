@@ -141,31 +141,34 @@ public class JPAApp {
 //        readStudents();
 
         createData();
+//  ZAPYTANIA
+//        String qlString = "SELECT new jpa.QueryResult(s.imie, s.indeks" +
+//                ".number, s.university.name) FROM Student s WHERE s.imie IN ('Robert' ,'Monika')";
+//
+//        TypedQuery<QueryResult> query = entityManager.createQuery(qlString, QueryResult.class);
+//        query.getResultList().forEach(odp -> System.out.println(odp.toString(3)));
+//
+//        List<QueryResult> resultList = entityManager.createQuery("SELECT new jpa.QueryResult(s.imie, COUNT(s)) " +
+//                "FROM Student s GROUP BY s.imie ORDER BY s.imie", QueryResult.class).getResultList();
+//        resultList.forEach(odp -> System.out.println(odp.toStringInt()));
+//
+//        List<QueryResult> resultList2 = entityManager.createQuery("SELECT new jpa.QueryResult(s.imie, COUNT(s)) " +
+//                "FROM Student s GROUP BY s.imie HAVING s.imie LIKE 'R%'", QueryResult.class).getResultList();
+//        resultList2.forEach(odp -> System.out.println(odp.toStringInt()));
+//
+//        entityManager.createNamedQuery("Student.getAll",Student.class).getResultList().forEach(System.out::println);
+//
+//        entityManager.createNamedQuery("Student.byName",Student.class).setParameter("name","Robert")
+//                .getResultList().forEach(System.out::println);
+//
+//        entityManager.createNamedQuery("Student.CountName",QueryResult.class)
+//                .getResultList().forEach(odp -> System.out.println(odp.toStringInt()));
+//
+//        entityManager.createNamedQuery("Student.CountitName",QueryResult.class).setParameter("name","Robert")
+//                .getResultList().forEach(odp -> System.out.println(odp.toStringInt()));
+//
+//ZAPYTANIA
 
-        String qlString = "SELECT new jpa.QueryResult(s.imie, s.indeks" +
-                ".number, s.university.name) FROM Student s WHERE s.imie IN ('Robert' ,'Monika')";
-
-        TypedQuery<QueryResult> query = entityManager.createQuery(qlString, QueryResult.class);
-        query.getResultList().forEach(odp -> System.out.println(odp.toString(3)));
-
-        List<QueryResult> resultList = entityManager.createQuery("SELECT new jpa.QueryResult(s.imie, COUNT(s)) " +
-                "FROM Student s GROUP BY s.imie ORDER BY s.imie", QueryResult.class).getResultList();
-        resultList.forEach(odp -> System.out.println(odp.toStringInt()));
-
-        List<QueryResult> resultList2 = entityManager.createQuery("SELECT new jpa.QueryResult(s.imie, COUNT(s)) " +
-                "FROM Student s GROUP BY s.imie HAVING s.imie LIKE 'R%'", QueryResult.class).getResultList();
-        resultList2.forEach(odp -> System.out.println(odp.toStringInt()));
-
-        entityManager.createNamedQuery("Student.getAll",Student.class).getResultList().forEach(System.out::println);
-
-        entityManager.createNamedQuery("Student.byName",Student.class).setParameter("name","Robert")
-                .getResultList().forEach(System.out::println);
-
-        entityManager.createNamedQuery("Student.CountName",QueryResult.class)
-                .getResultList().forEach(odp -> System.out.println(odp.toStringInt()));
-
-        entityManager.createNamedQuery("Student.CountitName",QueryResult.class).setParameter("name","Robert")
-                .getResultList().forEach(odp -> System.out.println(odp.toStringInt()));
 
 //        query.getResultList().forEach(wynik -> {
 //
@@ -190,7 +193,10 @@ public class JPAApp {
 //
 //        System.out.println(query1.getSingleResult());
 //        System.out.println("---------odpowiedź na pytanie : "+query1.toString());
-//
+
+
+        entityManager.createQuery("from University").getResultList().forEach(System.out::println);
+        //entityManager.createNamedQuery("Uniwersytety", University.class).getResultList().forEach(System.out::println);
 
     }
 
@@ -221,6 +227,7 @@ public class JPAApp {
 //        System.out.println("---------------------------------------------------------------------------------------");
 //        System.out.println(readStudent(1));
 //        System.out.println("---------------------------------------------------------------------------------------");
+        entityManager.clear();
     }
 
     private static Student readStudent(int nr) {
